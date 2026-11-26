@@ -532,6 +532,30 @@ footer {
   color: var(--soft);
 }
 
+footer {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  footer span:first-child {
+    flex: 1 0 100%;
+  }
+}
+
+.foot-link {
+  margin: -4px 0;
+  padding: 4px 0;
+  transition: opacity 400ms var(--ease);
+}
+
+.foot-link:hover {
+  opacity: 0.6;
+}
+
+.label + .mail {
+  margin-top: 0;
+}
+
 /* Beweging: alleen als er script is en de bezoeker het wil */
 
 @media (prefers-reduced-motion: no-preference) {
