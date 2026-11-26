@@ -1,0 +1,612 @@
+/* TOP/MIN — zwart op wit, één accent. 8 px grid. */
+
+:root {
+  --ground: #ffffff;
+  --ink: #000000;
+  --soft: rgba(0, 0, 0, 0.68);
+  --line: rgba(0, 0, 0, 0.18);
+  --accent: #1f3fbf;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --display: "Funnel Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --text: "Funnel Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --gutter-left: 56px;
+  --gutter-right: 16px;
+  --rail-left: 16px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter-left: 128px;
+    --gutter-right: 48px;
+    --rail-left: 48px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--ground);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 8px;
+}
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* Vaste laag: logo, contact, schaal */
+
+.logo {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  z-index: 10;
+  display: block;
+  width: 97px;
+  height: 24px;
+  margin-top: -4px;
+  margin-left: -48px;
+  padding: 4px 0;
+  mix-blend-mode: difference;
+}
+
+.logo svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: #ffffff; /* wit + difference = zwart op wit, en leesbaar op elk beeld */
+}
+
+.micro {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.top-link {
+  position: fixed;
+  top: 24px;
+  right: var(--gutter-right);
+  z-index: 10;
+  margin-top: -4px;
+  padding: 4px 0;
+  color: #ffffff;
+  mix-blend-mode: difference;
+  transition: opacity 400ms var(--ease);
+}
+
+.top-link:hover {
+  opacity: 0.6;
+}
+
+.scale {
+  position: fixed;
+  top: 96px;
+  bottom: 48px;
+  left: var(--rail-left);
+  z-index: 5;
+  width: 24px;
+  pointer-events: none;
+}
+
+.scale-label {
+  position: absolute;
+  left: 0;
+  color: var(--soft);
+}
+
+.scale-label.top {
+  top: -24px;
+}
+
+.scale-label.min {
+  bottom: -24px;
+}
+
+.scale-ticks {
+  position: absolute;
+  inset: 0;
+}
+
+.scale-ticks i {
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 1px;
+  background: var(--line);
+}
+
+.scale-ticks i.major {
+  width: 16px;
+}
+
+.scale-marker {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background: var(--accent);
+  will-change: transform;
+}
+
+/* Secties */
+
+section,
+footer {
+  padding-left: var(--gutter-left);
+  padding-right: var(--gutter-right);
+}
+
+section {
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+
+@media (min-width: 768px) {
+  section {
+    padding-top: 160px;
+    padding-bottom: 160px;
+  }
+}
+
+.label {
+  display: block;
+  margin-bottom: 32px;
+  color: var(--soft);
+}
+
+h1,
+h2,
+h3,
+.micro,
+.mail,
+.specimen {
+  font-family: var(--display);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  max-width: 30em;
+  color: var(--soft);
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .lead {
+    font-size: 24px;
+    line-height: 1.34;
+  }
+}
+
+/* Opening */
+
+/* Zonder script: tekst, dan de plaat. Met script: de plaat groeit met het scrollen. */
+
+.hero {
+  padding-top: 128px;
+  padding-bottom: 48px;
+}
+
+.hero .label {
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  margin-bottom: 24px;
+  font-size: clamp(40px, 7.2vw, 120px);
+  line-height: 1.04;
+}
+
+.plate {
+  --plate-h: min(100vh - 144px, (100vw - var(--gutter-left) - var(--gutter-right)) * 1.25);
+  --plate-h: min(100svh - 144px, (100vw - var(--gutter-left) - var(--gutter-right)) * 1.25);
+  width: calc(var(--plate-h) * 0.8);
+  height: var(--plate-h);
+  margin-top: 48px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.plate img,
+.plate-small img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plate img {
+  transform-origin: 50% 46%;
+  will-change: transform;
+}
+
+.hero-caption {
+  margin-top: 16px;
+  color: var(--soft);
+}
+
+.js .hero {
+  height: 260vh;
+  padding: 0;
+}
+
+.js .hero-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.js .hero-copy {
+  position: absolute;
+  left: var(--gutter-left);
+  right: var(--gutter-right);
+  bottom: 48px;
+  will-change: opacity, transform;
+}
+
+.js .plate {
+  position: absolute;
+  top: 96px;
+  right: var(--gutter-right);
+  margin: 0;
+  transform-origin: 100% 0;
+  will-change: transform;
+}
+
+.js .hero-caption {
+  position: absolute;
+  left: var(--gutter-left);
+  bottom: 48px;
+  margin: 0;
+  opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .hero .label {
+    margin-bottom: 32px;
+  }
+
+  .hero h1 {
+    margin-bottom: 32px;
+  }
+}
+
+/* Platen */
+
+.plates-section {
+  padding-top: 0;
+}
+
+.plates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.plate-small {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.plates-caption {
+  margin-top: 16px;
+  color: var(--soft);
+}
+
+@media (min-width: 1024px) {
+  .plates {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Werk */
+
+.work-lead {
+  margin-bottom: 64px;
+}
+
+.work {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.work h3 {
+  grid-column: 1 / -1;
+  font-size: clamp(24px, 3vw, 48px);
+  line-height: 1.16;
+}
+
+.work p {
+  grid-column: 1 / -1;
+  color: var(--soft);
+}
+
+.work p:empty {
+  display: none;
+}
+
+.work .who,
+.work .years {
+  color: var(--soft);
+}
+
+.work .years {
+  text-align: right;
+}
+
+@media (min-width: 1024px) {
+  .work {
+    grid-template-columns: 5fr 4fr 112px 96px;
+    gap: 0 32px;
+    align-items: baseline;
+    padding: 32px 0;
+  }
+
+  .work h3,
+  .work p {
+    grid-column: auto;
+  }
+}
+
+.mails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.mails .mail {
+  margin-top: 0;
+}
+
+.hero h1 .row {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.hero h1 .row > span {
+  display: block;
+}
+
+/* Werk */
+
+.rows {
+  border-top: 1px solid var(--line);
+}
+
+.row-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row-item .num {
+  color: var(--soft);
+}
+
+.row-item h3 {
+  font-size: clamp(32px, 4.4vw, 72px);
+  line-height: 1.1;
+}
+
+.row-item p {
+  max-width: 26em;
+  color: var(--soft);
+}
+
+@media (min-width: 1024px) {
+  .row-item {
+    grid-template-columns: 96px 1fr 1fr;
+    gap: 0 32px;
+    align-items: baseline;
+    padding: 48px 0;
+  }
+}
+
+/* Standpunt */
+
+.stand h2,
+.contact h2 {
+  max-width: 12em;
+  margin-bottom: 32px;
+  font-size: clamp(40px, 7.2vw, 120px);
+  line-height: 1.04;
+}
+
+/* Mensen */
+
+.people {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+}
+
+.person .role {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--soft);
+}
+
+.person h3 {
+  margin-bottom: 24px;
+  font-size: clamp(32px, 4.4vw, 72px);
+  line-height: 1.1;
+}
+
+.person p {
+  max-width: 26em;
+  color: var(--soft);
+}
+
+@media (min-width: 1024px) {
+  .people {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+/* Contact */
+
+.contact {
+  padding-bottom: 96px;
+}
+
+.mail {
+  display: inline-block;
+  margin-top: 48px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ink);
+  font-size: clamp(24px, 3.2vw, 48px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  transition: color 400ms var(--ease), border-color 400ms var(--ease);
+}
+
+.mail:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 24px;
+  padding-bottom: 48px;
+  color: var(--soft);
+}
+
+/* Beweging: alleen als er script is en de bezoeker het wil */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 800ms var(--ease), transform 800ms var(--ease);
+  }
+
+  .js .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js .hero h1 .row > span {
+    transform: translateY(110%);
+    transition: transform 1000ms var(--ease);
+  }
+
+  .js .hero h1 .row:nth-child(2) > span {
+    transition-delay: 80ms;
+  }
+
+  .js.ready .hero h1 .row > span {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Merkblad */
+
+.sheet-logo {
+  display: block;
+  width: min(100%, 968px);
+  fill: var(--ink);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--line);
+}
+
+.swatch {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.swatch .chip {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+}
+
+.swatch .hex {
+  color: var(--soft);
+}
+
+.specimen {
+  font-size: clamp(40px, 7.2vw, 120px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+}
+
+.specimen + .micro {
+  display: block;
+  margin-top: 32px;
+  color: var(--soft);
+}
+
+.sheet-note {
+  margin-top: 48px;
+}
