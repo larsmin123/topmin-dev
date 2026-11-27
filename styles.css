@@ -346,6 +346,33 @@ h3 {
   }
 }
 
+/* Cases */
+
+.case {
+  border-top: 1px solid var(--line);
+  padding-bottom: 64px;
+}
+
+.case:last-child {
+  padding-bottom: 0;
+}
+
+.case .row-item {
+  border-bottom: 0;
+}
+
+.case-meta {
+  display: block;
+  margin-top: 16px;
+  color: var(--soft);
+}
+
+@media (min-width: 768px) {
+  .case {
+    padding-bottom: 96px;
+  }
+}
+
 /* Werk */
 
 .work-lead {
