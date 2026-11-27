@@ -437,6 +437,76 @@ h3 {
   }
 }
 
+.case h3 a {
+  transition: color 400ms var(--ease);
+}
+
+.case h3 a:hover {
+  color: var(--accent);
+}
+
+.case-more {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--display);
+  transition: color 400ms var(--ease), border-color 400ms var(--ease);
+}
+
+.case-more:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Casepagina */
+
+.case-page {
+  padding-top: 128px;
+}
+
+.case-title {
+  max-width: 12em;
+  margin-bottom: 32px;
+  font-size: clamp(40px, 7.2vw, 120px);
+  line-height: 1.04;
+}
+
+.case-body .lead + .lead {
+  margin-top: 16px;
+}
+
+.case-body .mail {
+  margin-top: 32px;
+}
+
+.case-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 64px;
+  margin-bottom: 64px;
+  align-items: start;
+}
+
+.case-figure {
+  background: var(--line);
+}
+
+.case-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .case-gallery {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 96px;
+    margin-bottom: 96px;
+  }
+}
+
 /* Werk */
 
 .work-lead {
