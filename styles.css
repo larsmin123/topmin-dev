@@ -681,19 +681,6 @@ h3 {
   }
 }
 
-/* Waarom */
-
-.why-title {
-  max-width: 12em;
-  margin-bottom: 32px;
-  font-size: clamp(40px, 7.2vw, 120px);
-  line-height: 1.04;
-}
-
-.why-lead {
-  margin-bottom: 64px;
-}
-
 /* Standpunt */
 
 .stand h2,
