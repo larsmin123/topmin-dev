@@ -107,6 +107,7 @@ button:focus-visible {
 
 .pl {
   display: block;
+  height: var(--pl-h, auto);
   aspect-ratio: 4 / 5;
   overflow: hidden;
   padding: 0;
@@ -334,4 +335,23 @@ button:focus-visible {
 
 .prints [data-tool="measure"] {
   display: none;
+}
+
+/* Liggende bladen: twee kolommen breed, even hoog als de rest van de rij */
+
+.pl.wide {
+  grid-column: span 2;
+  aspect-ratio: auto;
+}
+
+.prints .pl-grid {
+  grid-auto-flow: dense;
+}
+
+/* Op een telefoon twee kolommen: een liggend blad vult dan de hele breedte en laat geen gat. */
+
+@media (max-width: 767px) {
+  .prints .pl-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }

@@ -1,4 +1,5 @@
 // Gegenereerd uit de collectie van Japanmuseum SieboldHuis (sieboldhuis.org).
+window.TOPMIN_NO_DEFAULT = true; // begin zonder gekozen waarde: alle prenten zichtbaar
 window.TOPMIN_AXES = [["maker","Maker"],["uitgever","Uitgever"],["houtsnijder","Houtsnijder"],["decennium","Tijd"],["onderwerp","Onderwerp"]];
 window.TOPMIN_PLATES = [{"id":"000","number":"SH2018-DM-228","title":"Pentaptiek van de hoofdtstraat in de bordelenwijk Yoshiwara","w":3588,"h":1101,"box":[0,0,1,1],"ratio":3.259,"thumb":"images/siebold/000.jpg","full":"https://www.sieboldhuis.org/public/bestanden/collectie/SH2018-DM-228.jpg","tw":600,"th":184,"maker":["Toyokuni"],"uitgever":["Izumiya Ichibei (Kansendō)"],"houtsnijder":[],"decennium":["1790-1799"],"onderwerp":[]},
 {"id":"001","number":"SH2018-DM-227","title":"Ichikawa Danzaburō en Ichikawa Aragorō in onbekende rollen","w":2741,"h":4036,"box":[0,0,1,1],"ratio":1.472,"thumb":"images/siebold/001.jpg","full":"https://www.sieboldhuis.org/public/bestanden/collectie/SH2018-DM-227.jpg","tw":600,"th":883,"maker":["Toyokuni"],"uitgever":[],"houtsnijder":[],"decennium":["1800-1809"],"onderwerp":[]},

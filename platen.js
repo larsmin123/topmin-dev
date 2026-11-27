@@ -26,6 +26,9 @@
   var WHEEL_SPEED = 0.0015;
   var DAMPING = 14;
   var DOT_RADIUS = 3;
+  var WIDE_FROM = 1.15;      // breedte gedeeld door hoogte waarboven een blad als liggend telt
+  var TILE_RATIO = 1.25;     // hoogte van een tegel gedeeld door de breedte van één kolom
+  var PICK_FIRST = !window.TOPMIN_NO_DEFAULT; // zonder voorkeur begint het raster ongedimd
 
   // Uit platen-data.js. box: [x, y, breedte, hoogte] van het object als deel van het beeld.
   var PLATES = window.TOPMIN_PLATES || [];
@@ -77,7 +80,8 @@
     PLATES.forEach(function (plate) {
       var button = document.createElement('button');
       button.type = 'button';
-      button.className = 'pl';
+      // Liggende bladen krijgen twee kolommen, anders staan ze als postzegel in een staande tegel.
+      button.className = plate.tw && plate.tw > plate.th * WIDE_FROM ? 'pl wide' : 'pl';
       button.setAttribute('aria-label', plate.title + ', zoom in');
       var img = document.createElement('img');
       img.src = plate.thumb || 'images/lapse/' + plate.id + '.jpg';
@@ -141,7 +145,7 @@
 
   function drawLinks() {
     var all = axisGroups();
-    if (!state.value && all.length) state.value = all[0].value;
+    if (PICK_FIRST && !state.value && all.length) state.value = all[0].value;
     var groups = shownGroups(all);
     var base = wrap.getBoundingClientRect();
     var linked = {};
@@ -163,7 +167,7 @@
     });
 
     PLATES.forEach(function (plate) {
-      tiles[plate.id].classList.toggle('off', !linked[plate.id]);
+      tiles[plate.id].classList.toggle('off', groups.length > 0 && !linked[plate.id]);
     });
 
     drawValues(all, groups);
@@ -457,9 +461,23 @@
   axisButtons.forEach(function (button) {
     button.addEventListener('click', function () { setAxis(button.dataset.axis); });
   });
-  if ('ResizeObserver' in window) new ResizeObserver(drawLinks).observe(wrap);
-  window.addEventListener('load', drawLinks);
-  drawLinks();
+  // Alle tegels in een rij zijn even hoog: de hoogte volgt uit de breedte van één kolom.
+  function sizeRows() {
+    var style = getComputedStyle(grid);
+    var columns = style.gridTemplateColumns.split(' ').length;
+    var gap = parseFloat(style.columnGap) || 0;
+    var columnWidth = (grid.clientWidth - gap * (columns - 1)) / columns;
+    grid.style.setProperty('--pl-h', Math.round(columnWidth * TILE_RATIO) + 'px');
+  }
+
+  function layout() {
+    sizeRows();
+    drawLinks();
+  }
+
+  if ('ResizeObserver' in window) new ResizeObserver(layout).observe(wrap);
+  window.addEventListener('load', layout);
+  layout();
 
   // Een adres met ?open=<id> opent die plaat meteen in de kijker.
   var wanted = new URLSearchParams(window.location.search).get('open');
