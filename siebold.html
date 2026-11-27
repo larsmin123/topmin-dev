@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TOP/MIN, prenten van het SieboldHuis</title>
+<meta name="description" content="166 Japanse prenten uit Japanmuseum SieboldHuis om in te zoomen, verbonden op maker, uitgever, houtsnijder, tijd en onderwerp.">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000000'/%3E%3Cpath d='M30 82h10L70 18H60z' fill='%23FFFFFF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..600&family=Funnel+Sans:wght@400..600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="platen.css">
+</head>
+<body class="sheet prints">
+
+<a class="logo" href="index.html" aria-label="TOP/MIN, naar de site">
+  <svg viewBox="0 0 605 100" aria-hidden="true">
+    <path d="M0 0h80v12H46v88H34V12H0z"/>
+    <path fill-rule="evenodd" d="M146 0a50 50 0 1 0 0 100a50 50 0 1 0 0-100zm0 12a38 38 0 1 1 0 76a38 38 0 1 1 0-76z"/>
+    <path fill-rule="evenodd" d="M218 0h40a33 33 0 0 1 0 66h-28v34h-12zm12 12v42h28a21 21 0 0 0 0-42z"/>
+    <path d="M296 100h13L349 0h-13z"/>
+    <path d="M361 0h13l39 85.7L452 0h13v100h-12V25.3L419.5 100h-13L373 25.3V100h-12z"/>
+    <path d="M487 0h12v100h-12z"/>
+    <path d="M521 0h13l59 83.1V0h12v100h-13l-59-83.1V100h-12z"/>
+  </svg>
+</a>
+
+<a class="top-link menu-button micro" href="index.html">Naar de site</a>
+
+<main>
+  <section class="pl-section">
+    <span class="label micro">Japanmuseum SieboldHuis</span>
+    <h1 class="pl-title">166 prenten, vijf manieren van kijken.</h1>
+    <p class="lead">Japanse prenten uit de collectie van het museum, verbonden met de gegevens van het museum zelf. Ze staan op tijd, van oud naar nieuw. Kies er een om in te zoomen.</p>
+
+    <div class="axes" role="group" aria-label="Verbind de platen op">
+      <button type="button" class="axis micro" data-axis="maker" aria-pressed="true">Maker</button>
+      <button type="button" class="axis micro" data-axis="uitgever" aria-pressed="false">Uitgever</button>
+      <button type="button" class="axis micro" data-axis="houtsnijder" aria-pressed="false">Houtsnijder</button>
+      <button type="button" class="axis micro" data-axis="decennium" aria-pressed="false">Tijd</button>
+      <button type="button" class="axis micro" data-axis="onderwerp" aria-pressed="false">Onderwerp</button>
+    </div>
+    <div class="links-caption micro" role="group" aria-label="Waarden op deze as"></div>
+
+    <div class="pl-wrap">
+      <div class="pl-grid"></div>
+      <svg class="pl-lines" aria-hidden="true"></svg>
+    </div>
+    <p class="plates-caption micro">Beeld en gegevens: Japanmuseum SieboldHuis</p>
+  </section>
+</main>
+
+<div class="viewer" role="dialog" aria-modal="true" aria-labelledby="viewer-title" hidden>
+  <div class="viewer-stage">
+    <div class="viewer-plate">
+      <img alt="">
+      <svg class="viewer-measure" aria-hidden="true"></svg>
+    </div>
+  </div>
+  <div class="viewer-panel">
+    <span class="viewer-number micro"></span>
+    <h2 id="viewer-title"></h2>
+    <dl class="viewer-meta"></dl>
+    <div class="viewer-tools">
+      <button type="button" class="tool micro" data-tool="out" aria-label="Zoom uit">−</button>
+      <button type="button" class="tool micro" data-tool="in" aria-label="Zoom in">+</button>
+      <button type="button" class="tool micro" data-tool="measure" aria-pressed="false">Maat</button>
+      <button type="button" class="tool micro" data-tool="close">Sluit</button>
+    </div>
+  </div>
+</div>
+
+<script src="siebold-data.js"></script>
+<script src="platen.js"></script>
+</body>
+</html>

@@ -316,3 +316,22 @@ button:focus-visible {
     padding-top: 32px;
   }
 }
+
+/* Prenten: het hele blad tonen, niet bijsnijden */
+
+.prints .pl {
+  padding: 8px;
+  background: #f2f2f2;
+}
+
+.prints .pl img {
+  object-fit: contain;
+}
+
+.prints .viewer-stage {
+  background: #f2f2f2;
+}
+
+.prints [data-tool="measure"] {
+  display: none;
+}

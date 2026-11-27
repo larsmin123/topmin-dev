@@ -4,8 +4,11 @@
 (function () {
   'use strict';
 
-  var AXES = ['vorm', 'materiaal', 'techniek', 'motief', 'verhouding'];
-  var AXIS_LABEL = { vorm: 'Vorm', materiaal: 'Materiaal', techniek: 'Techniek', motief: 'Motief', verhouding: 'Verhouding' };
+  // De assen komen van de pagina; zonder opgave zijn het de vijf van de objectfoto's.
+  var AXIS_LIST = window.TOPMIN_AXES || [['vorm', 'Vorm'], ['materiaal', 'Materiaal'], ['techniek', 'Techniek'], ['motief', 'Motief'], ['verhouding', 'Verhouding']];
+  var AXES = AXIS_LIST.map(function (pair) { return pair[0]; });
+  var AXIS_LABEL = {};
+  AXIS_LIST.forEach(function (pair) { AXIS_LABEL[pair[0]] = pair[1]; });
 
   // Benoemde verhoudingen. Een object hoort erbij als het er minder dan 3,5% van afwijkt.
   var NAMED_RATIOS = [
@@ -67,7 +70,7 @@
   var caption = document.querySelector('.links-caption');
   var axisButtons = Array.prototype.slice.call(document.querySelectorAll('.axis'));
 
-  var state = { axis: 'vorm', hover: null, value: null };
+  var state = { axis: AXES[0], hover: null, value: null };
   var tiles = {};
 
   function buildGrid() {
@@ -77,10 +80,10 @@
       button.className = 'pl';
       button.setAttribute('aria-label', plate.title + ', zoom in');
       var img = document.createElement('img');
-      img.src = 'images/lapse/' + plate.id + '.jpg';
+      img.src = plate.thumb || 'images/lapse/' + plate.id + '.jpg';
       img.alt = '';
-      img.width = 640;
-      img.height = 800;
+      img.width = plate.tw || 640;
+      img.height = plate.th || 800;
       img.loading = 'lazy';
       button.appendChild(img);
       button.addEventListener('click', function () { openViewer(plate, button); });
@@ -332,7 +335,7 @@
     open = { plate: plate, opener: opener };
     plateEl.style.width = plate.w + 'px';
     plateEl.style.height = plate.h + 'px';
-    plateImg.src = 'images/platen/' + plate.id + '.jpg';
+    plateImg.src = plate.full || 'images/platen/' + plate.id + '.jpg';
     plateImg.alt = plate.title;
     titleEl.textContent = plate.title;
     numberEl.textContent = plate.number;

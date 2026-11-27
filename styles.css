@@ -401,6 +401,19 @@ h3 {
   }
 }
 
+.plate-print {
+  padding: 8px;
+  background: #f2f2f2;
+}
+
+.plate-print img {
+  object-fit: contain;
+}
+
+.case-link {
+  margin-top: 32px;
+}
+
 .case-meta {
   display: block;
   margin-top: 16px;
@@ -523,6 +536,19 @@ h3 {
     align-items: baseline;
     padding: 48px 0;
   }
+}
+
+/* Waarom */
+
+.why-title {
+  max-width: 12em;
+  margin-bottom: 32px;
+  font-size: clamp(40px, 7.2vw, 120px);
+  line-height: 1.04;
+}
+
+.why-lead {
+  margin-bottom: 64px;
 }
 
 /* Standpunt */
