@@ -1,4 +1,4 @@
-// TOP/MIN, platen: twaalf foto's die je kunt inzoomen en verbinden.
+// TOP/MIN, platen: foto's die je kunt inzoomen en verbinden.
 // De verbanden zijn alleen wat op de foto te zien is of wat is nagemeten.
 
 (function () {
@@ -24,21 +24,8 @@
   var DAMPING = 14;
   var DOT_RADIUS = 3;
 
-  // box: [x, y, breedte, hoogte] van het object als deel van het beeld, gemeten tegen het grijs.
-  var PLATES = [
-    { id: 'munt-schrift', number: 'GM 1884-01-0021', title: 'Gouden munt met Arabisch schrift', w: 1600, h: 2000, box: [0.1266, 0.1912, 0.7344, 0.6025], ratio: 1.026, vorm: ['Cirkel'], materiaal: ['Goud'], techniek: ['Geslagen'], motief: ['Schrift'] },
-    { id: 'munt-portret-1', number: 'GM 1962-10-0018', title: 'Gouden munt met portret, als hanger', w: 1600, h: 2000, box: [0.1125, 0.0962, 0.7734, 0.7188], ratio: 1.162, vorm: ['Cirkel'], materiaal: ['Goud'], techniek: ['Geslagen'], motief: ['Schrift', 'Mens'] },
-    { id: 'munt-portret-2', number: 'ZM GM3767', title: 'Gouden munt met portret, als hanger', w: 1600, h: 2000, box: [0.1609, 0.1288, 0.6891, 0.6587], ratio: 1.195, vorm: ['Cirkel'], materiaal: ['Goud'], techniek: ['Geslagen'], motief: ['Schrift', 'Mens'] },
-    { id: 'glasschijf', number: 'RMO f 2016/3.40', title: 'Schijf van gekleurd glas', w: 1600, h: 2000, box: [0.0797, 0.1138, 0.8359, 0.7062], ratio: 1.056, vorm: ['Cirkel'], materiaal: ['Glas'], techniek: ['Mozaïek'], motief: ['Bloem', 'Ringen'] },
-    { id: 'rozet', number: 'PDB-L M0058-022', title: 'Rozet met rode inleg', w: 1600, h: 2000, box: [0.1297, 0.1412, 0.7641, 0.6462], ratio: 1.057, vorm: ['Cirkel'], materiaal: ['Zilver', 'Rode steen'], techniek: ['Celwerk'], motief: ['Bloem'] },
-    { id: 'schijf-filigraan', number: 'RMO l 2021/2.1', title: 'Gouden schijf met stenen en filigraan', w: 1600, h: 2000, box: [0.0625, 0.125, 0.8688, 0.6812], ratio: 1.02, vorm: ['Cirkel'], materiaal: ['Goud', 'Rode steen'], techniek: ['Filigraan', 'Celwerk'], motief: ['Vlechtwerk'] },
-    { id: 'slangenring', number: 'RMO t 202on.1', title: 'Gouden ring met twee slangenkoppen', w: 1600, h: 2000, box: [0.1594, 0.2575, 0.6938, 0.455], ratio: 1.22, vorm: ['Spiraal'], materiaal: ['Goud'], techniek: ['Gesmeed'], motief: ['Slang'] },
-    { id: 'spiraalring', number: 'RMO e 1929/3.41', title: 'Gouden spiraalring', w: 1598, h: 2000, box: [0.216, 0.3038, 0.5649, 0.4338], ratio: 1.04, vorm: ['Spiraal'], materiaal: ['Goud'], techniek: ['Gesmeed'], motief: [] },
-    { id: 'kruis', number: 'ZM M2024-035', title: 'Gouden kruis met bolletjes', w: 1600, h: 2000, box: [0.1562, 0.0838, 0.7281, 0.8012], ratio: 1.376, vorm: ['Kruis'], materiaal: ['Goud'], techniek: ['Granulatie', 'Filigraan'], motief: ['Kruis'] },
-    { id: 'halve-maan', number: 'RMO g 2024/12.1', title: 'Gouden hanger als halve maan', w: 1600, h: 2000, box: [0.0594, 0.245, 0.8734, 0.5012], ratio: 1.394, vorm: ['Halve maan'], materiaal: ['Goud'], techniek: ['Filigraan', 'Granulatie'], motief: [] },
-    { id: 'porselein', number: 'muZEEum 057', title: 'Bord en kom van blauw-wit porselein', w: 1920, h: 2400, box: [0.0906, 0.175, 0.8078, 0.6438], ratio: 1.004, vorm: ['Cirkel'], materiaal: ['Porselein'], techniek: ['Geschilderd'], motief: ['Bloem', 'Ringen'] },
-    { id: 'altaarsteen', number: 'ZM Nehalennia 027', title: 'Altaarsteen met een figuur in een nis', w: 1600, h: 2000, box: [0.2203, 0.175, 0.5453, 0.6975], ratio: 1.599, vorm: ['Rechthoek'], materiaal: ['Steen'], techniek: ['Gehouwen'], motief: ['Mens'] }
-  ];
+  // Uit platen-data.js. box: [x, y, breedte, hoogte] van het object als deel van het beeld.
+  var PLATES = window.TOPMIN_PLATES || [];
 
   var SVG_NS = 'http://www.w3.org/2000/svg';
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -90,10 +77,10 @@
       button.className = 'pl';
       button.setAttribute('aria-label', plate.title + ', zoom in');
       var img = document.createElement('img');
-      img.src = 'images/platen/' + plate.id + '-s.jpg';
+      img.src = 'images/lapse/' + plate.id + '.jpg';
       img.alt = '';
-      img.width = 800;
-      img.height = 1000;
+      img.width = 640;
+      img.height = 800;
       img.loading = 'lazy';
       button.appendChild(img);
       button.addEventListener('click', function () { openViewer(plate, button); });
@@ -106,27 +93,53 @@
     grid.addEventListener('mouseleave', function () { setHover(null); });
   }
 
-  // Groepen van twee of meer platen die op de gekozen as dezelfde waarde delen.
-  function currentGroups() {
+  // Alle waarden op de gekozen as die twee of meer platen delen, grootste groep eerst.
+  function axisGroups() {
     var groups = {};
     PLATES.forEach(function (plate) {
       plate[state.axis].forEach(function (value) {
         (groups[value] = groups[value] || []).push(plate.id);
       });
     });
-    var hovered = state.hover && byId(state.hover);
     return Object.keys(groups)
-      .filter(function (value) {
-        if (groups[value].length < 2) return false;
-        if (hovered) return hovered[state.axis].indexOf(value) !== -1;
-        if (state.value) return value === state.value;
-        return true;
-      })
-      .map(function (value) { return { value: value, ids: groups[value] }; });
+      .filter(function (value) { return groups[value].length > 1; })
+      .map(function (value) { return { value: value, ids: groups[value] }; })
+      .sort(function (one, other) { return other.ids.length - one.ids.length; });
+  }
+
+  // Wat nu getekend wordt: de waarden van de plaat onder de muis, anders de gekozen waarde.
+  function shownGroups(all) {
+    var hovered = state.hover && byId(state.hover);
+    return all.filter(function (group) {
+      if (hovered) return hovered[state.axis].indexOf(group.value) !== -1;
+      return group.value === state.value;
+    });
+  }
+
+  function drawValues(all, shown) {
+    while (caption.firstChild) caption.removeChild(caption.firstChild);
+    if (!all.length) {
+      caption.textContent = 'Geen verband op ' + AXIS_LABEL[state.axis].toLowerCase();
+      return;
+    }
+    all.forEach(function (group) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'chip micro';
+      button.textContent = group.value + ' ' + group.ids.length;
+      button.setAttribute('aria-pressed', String(shown.indexOf(group) !== -1));
+      button.addEventListener('click', function () {
+        state.value = group.value;
+        drawLinks();
+      });
+      caption.appendChild(button);
+    });
   }
 
   function drawLinks() {
-    var groups = currentGroups();
+    var all = axisGroups();
+    if (!state.value && all.length) state.value = all[0].value;
+    var groups = shownGroups(all);
     var base = wrap.getBoundingClientRect();
     var linked = {};
 
@@ -150,9 +163,7 @@
       tiles[plate.id].classList.toggle('off', !linked[plate.id]);
     });
 
-    caption.textContent = groups.length
-      ? groups.map(function (group) { return group.value + ' ' + group.ids.length; }).join(' · ')
-      : 'Geen verband op ' + AXIS_LABEL[state.axis].toLowerCase();
+    drawValues(all, groups);
   }
 
   function setHover(id) {

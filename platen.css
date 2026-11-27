@@ -53,9 +53,27 @@ button:focus-visible {
 }
 
 .links-caption {
-  min-height: 32px;
-  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 24px;
+  min-height: 40px;
+  margin-top: 8px;
   margin-bottom: 24px;
+  color: var(--soft);
+}
+
+.chip {
+  padding: 12px 0;
+  color: var(--soft);
+  font-family: var(--display);
+  transition: color 400ms var(--ease);
+}
+
+.chip:hover {
+  color: var(--ink);
+}
+
+.chip[aria-pressed="true"] {
   color: var(--accent);
 }
 
@@ -71,15 +89,19 @@ button:focus-visible {
   gap: 8px;
 }
 
-@media (min-width: 640px) {
+.pl-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (min-width: 768px) {
   .pl-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .pl-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(8, 1fr);
   }
 }
 
