@@ -237,6 +237,10 @@ window.TOPMIN_CASES = [
    "text": [
     "De altaarstenen van de godin Nehalennia, steen voor steen gefotografeerd.",
     "In 2021 fotografeerde Pim de stenen zelf. In 2023 volgden de collages: de losse fragmenten liggen daarin terug op de oude prenten waarop de stenen ooit heel zijn getekend."
+   ],
+   "link": [
+    "platen.html",
+    "Zoom in op 79 platen"
    ]
   },
   "en": {
@@ -244,6 +248,10 @@ window.TOPMIN_CASES = [
    "text": [
     "The altar stones of the goddess Nehalennia, photographed stone by stone.",
     "In 2021 Pim photographed the stones themselves. The collages followed in 2023: the loose fragments laid back on the old prints on which the stones were once drawn whole."
+   ],
+   "link": [
+    "platen.html",
+    "Zoom in on 79 plates"
    ]
   },
   "images": [
