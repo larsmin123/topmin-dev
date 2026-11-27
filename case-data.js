@@ -97,86 +97,137 @@ window.TOPMIN_CASES = [
    "meta": "Digitale strategie, Lars, 2026–2027",
    "text": [
     "De digitale vernieuwing van het museum: een nieuwe huisstijl, de content en een collectie waarin alles met elkaar verbonden is. Dit loopt nu.",
-    "166 Japanse prenten kun je al bekijken, verbonden op maker, uitgever, houtsnijder, tijd en onderwerp."
+    "Twaalf prenten uit de collectie, van Toyokuni tot Toshikata. Klik op een prent om in te zoomen op het origineel."
    ],
    "link": [
     "siebold.html",
     "Bekijk 166 prenten"
-   ]
+   ],
+   "credit": "Beeld en gegevens: Japanmuseum SieboldHuis"
   },
   "en": {
    "meta": "Digital strategy, Lars, 2026–2027",
    "text": [
     "The museum’s digital renewal: a new identity, the content and a collection in which everything is connected. This is under way.",
-    "166 Japanese prints are already on view, connected by maker, publisher, block cutter, period and subject."
+    "Twelve prints from the collection, from Toyokuni to Toshikata. Click a print to zoom in on the original."
    ],
    "link": [
     "siebold.html",
     "See 166 prints"
-   ]
+   ],
+   "credit": "Images and data: Japanmuseum SieboldHuis"
   },
   "images": [
-   [
-    "images/siebold/001.jpg",
-    600,
-    883
-   ],
-   [
-    "images/siebold/044.jpg",
-    600,
-    880
-   ],
-   [
-    "images/siebold/048.jpg",
-    600,
-    882
-   ],
-   [
-    "images/siebold/133.jpg",
-    600,
-    890
-   ],
-   [
-    "images/siebold/005.jpg",
-    600,
-    861
-   ],
-   [
-    "images/siebold/027.jpg",
-    600,
-    883
-   ],
-   [
-    "images/siebold/060.jpg",
-    600,
-    873
-   ],
-   [
-    "images/siebold/075.jpg",
-    600,
-    882
-   ],
-   [
-    "images/siebold/090.jpg",
-    600,
-    296
-   ],
-   [
-    "images/siebold/110.jpg",
-    600,
-    437
-   ],
-   [
-    "images/siebold/150.jpg",
-    600,
-    418
-   ],
-   [
-    "images/siebold/160.jpg",
-    600,
-    404
-   ]
-  ]
+   {
+    "src": "images/siebold-hi/001-1200.jpg",
+    "w": 815,
+    "h": 1200,
+    "srcset": "images/siebold-hi/001-1200.jpg 815w, images/siebold-hi/001-2400.jpg 1630w",
+    "label": "Toyokuni, 1800–1809",
+    "title": "Ichikawa Danzaburō en Ichikawa Aragorō in onbekende rollen",
+    "href": "siebold.html?open=001"
+   },
+   {
+    "src": "images/siebold-hi/005-1200.jpg",
+    "w": 836,
+    "h": 1200,
+    "srcset": "images/siebold-hi/005-1200.jpg 836w, images/siebold-hi/005-2400.jpg 1673w",
+    "label": "Utagawa Kunisada, 1820–1829",
+    "title": "Bandō Mitsugorō III in de rol van irogotoshi Minamibae kakiso no Osu",
+    "href": "siebold.html?open=005"
+   },
+   {
+    "src": "images/siebold-hi/018-1200.jpg",
+    "w": 861,
+    "h": 1200,
+    "srcset": "images/siebold-hi/018-1200.jpg 861w, images/siebold-hi/018-2400.jpg 1723w",
+    "label": "Utagawa Kunisada, 1830–1839",
+    "title": "Onoe Kikugorō afgedaald [naar Edo, in de rol van] de Lantaarngeest [Oiwa], geprezen in de Drie Metropolen (L)",
+    "href": "siebold.html?open=018"
+   },
+   {
+    "src": "images/siebold-hi/027-1200.jpg",
+    "w": 816,
+    "h": 1200,
+    "srcset": "images/siebold-hi/027-1200.jpg 816w, images/siebold-hi/027-2400.jpg 1631w",
+    "label": "Kuniyoshi, 1840–1849",
+    "title": "[Iwai Kumesaburō III in de rol van] Ushiwakamaru en [Nakamura Kan’emon I in de rol van] Satoru Zenmon(?)",
+    "href": "siebold.html?open=027"
+   },
+   {
+    "src": "images/siebold-hi/044-1200.jpg",
+    "w": 818,
+    "h": 1200,
+    "srcset": "images/siebold-hi/044-1200.jpg 818w, images/siebold-hi/044-2400.jpg 1637w",
+    "label": "Utagawa Hiroshige, 1850–1859",
+    "title": "De Taiko-brug bij Meguro en de Zonsondergangheuvel",
+    "href": "siebold.html?open=044"
+   },
+   {
+    "src": "images/siebold-hi/047-1200.jpg",
+    "w": 833,
+    "h": 1200,
+    "srcset": "images/siebold-hi/047-1200.jpg 833w, images/siebold-hi/047-2400.jpg 1666w",
+    "label": "Toyokuni, 1850–1859",
+    "title": "Tussen Numazu en Hara, het dorpje Ide en Kawazu Saburō",
+    "href": "siebold.html?open=047"
+   },
+   {
+    "src": "images/siebold-hi/048-1200.jpg",
+    "w": 816,
+    "h": 1200,
+    "srcset": "images/siebold-hi/048-1200.jpg 816w, images/siebold-hi/048-2400.jpg 1632w",
+    "label": "Yoshitoshi, 1860–1869",
+    "title": "Habakari Yūkichi",
+    "href": "siebold.html?open=048"
+   },
+   {
+    "src": "images/siebold-hi/070-1200.jpg",
+    "w": 811,
+    "h": 1200,
+    "srcset": "images/siebold-hi/070-1200.jpg 811w, images/siebold-hi/070-2400.jpg 1621w",
+    "label": "Yoshitoshi, 1860–1869",
+    "title": "Kasagawa Higezō",
+    "href": "siebold.html?open=070"
+   },
+   {
+    "src": "images/siebold-hi/092-1200.jpg",
+    "w": 821,
+    "h": 1200,
+    "srcset": "images/siebold-hi/092-1200.jpg 821w, images/siebold-hi/092-2400.jpg 1641w",
+    "label": "Yoshitoshi, 1880–1889",
+    "title": "Hino Kumawakamaru",
+    "href": "siebold.html?open=092"
+   },
+   {
+    "src": "images/siebold-hi/108-1200.jpg",
+    "w": 826,
+    "h": 1200,
+    "srcset": "images/siebold-hi/108-1200.jpg 826w, images/siebold-hi/108-2400.jpg 1652w",
+    "label": "Yoshitoshi, 1880–1889",
+    "title": "Aanvoerder Yoshitaka: de Maan bij de Seson-Tempel",
+    "href": "siebold.html?open=108"
+   },
+   {
+    "src": "images/siebold-hi/133-1200.jpg",
+    "w": 809,
+    "h": 1200,
+    "srcset": "images/siebold-hi/133-1200.jpg 809w, images/siebold-hi/133-2400.jpg 1617w",
+    "label": "Toshikata, 1890–1899",
+    "title": "Een Plezieruitje: Vrouwen van het Kyōho-tijdperk",
+    "href": "siebold.html?open=133"
+   },
+   {
+    "src": "images/siebold-hi/152-1200.jpg",
+    "w": 812,
+    "h": 1200,
+    "srcset": "images/siebold-hi/152-1200.jpg 812w, images/siebold-hi/152-2400.jpg 1625w",
+    "label": "Toshikata, 1890–1899",
+    "title": "Shirabyōshi: Vrouwen van het Kenkyū-Tijdperk",
+    "href": "siebold.html?open=152"
+   }
+  ],
+  "layout": "prints"
  },
  {
   "id": "zeeuws",

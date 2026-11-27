@@ -8,8 +8,8 @@
   var lang = params.get('lang') === 'en' ? 'en' : 'nl';
   var home = lang === 'en' ? 'en.html' : 'index.html';
   var WORDS = {
-    nl: { back: 'Alle cases', next: 'Volgende case: ', image: 'beeld', missing: 'Deze case bestaat niet.' },
-    en: { back: 'All cases', next: 'Next case: ', image: 'image', missing: 'This case does not exist.' }
+    nl: { back: 'Alle cases', next: 'Volgende case: ', image: 'beeld', zoom: 'zoom in', missing: 'Deze case bestaat niet.' },
+    en: { back: 'All cases', next: 'Next case: ', image: 'image', zoom: 'zoom in', missing: 'This case does not exist.' }
   };
   var words = WORDS[lang];
 
@@ -56,18 +56,59 @@
   }
 
   var gallery = find('[data-gallery]');
+  if (item.layout) gallery.classList.add('case-gallery-' + item.layout);
+
+  // Een beeld is [pad, breedte, hoogte] of een object met srcset, bijschrift en doorklik.
   item.images.forEach(function (image, i) {
+    var entry = Array.isArray(image) ? { src: image[0], w: image[1], h: image[2] } : image;
     var figure = document.createElement('figure');
     figure.className = 'case-figure';
     var img = document.createElement('img');
-    img.src = image[0];
-    img.width = image[1];
-    img.height = image[2];
-    img.alt = item.title + ', ' + words.image + ' ' + (i + 1);
+    img.src = entry.src;
+    img.width = entry.w;
+    img.height = entry.h;
+    if (entry.srcset) {
+      img.srcset = entry.srcset;
+      img.sizes = '(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 85vw';
+    }
+    img.alt = entry.title || item.title + ', ' + words.image + ' ' + (i + 1);
     if (i > 2) img.loading = 'lazy';
-    figure.appendChild(img);
+
+    var frame = img;
+    if (entry.href) {
+      frame = document.createElement('a');
+      frame.className = 'case-frame';
+      frame.href = entry.href;
+      frame.setAttribute('aria-label', (entry.title || item.title) + ', ' + words.zoom);
+      frame.appendChild(img);
+    }
+    figure.appendChild(frame);
+
+    if (entry.label || entry.title) {
+      var caption = document.createElement('figcaption');
+      if (entry.label) {
+        var label = document.createElement('span');
+        label.className = 'micro';
+        label.textContent = entry.label;
+        caption.appendChild(label);
+      }
+      if (entry.title) {
+        var title = document.createElement('span');
+        title.className = 'case-caption-title';
+        title.textContent = entry.title;
+        caption.appendChild(title);
+      }
+      figure.appendChild(caption);
+    }
     gallery.appendChild(figure);
   });
+
+  if (copy.credit) {
+    var credit = document.createElement('p');
+    credit.className = 'plates-caption micro case-credit';
+    credit.textContent = copy.credit;
+    gallery.parentNode.insertBefore(credit, gallery.nextSibling);
+  }
 
   var next = cases[(index + 1) % cases.length];
   var nextLink = find('[data-next]');

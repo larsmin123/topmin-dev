@@ -507,6 +507,75 @@ h3 {
   }
 }
 
+/* Prenten: elk blad in een even groot kader, heel te zien */
+
+.case-gallery-prints {
+  gap: 48px 8px;
+  margin-bottom: 32px;
+}
+
+.case-gallery-prints .case-figure {
+  background: none;
+}
+
+.case-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 5 / 7;
+  padding: 32px;
+  background: #f2f2f2;
+  transition: background 400ms var(--ease);
+}
+
+.case-frame:hover {
+  background: #e6e6e6;
+}
+
+.case-gallery-prints .case-frame img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+.case-figure figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding-right: 16px;
+  color: var(--soft);
+}
+
+.case-caption-title {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.case-credit {
+  margin-top: 0;
+  margin-bottom: 64px;
+}
+
+@media (min-width: 640px) {
+  .case-gallery-prints {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .case-gallery-prints {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 64px 8px;
+    margin-bottom: 32px;
+  }
+
+  .case-frame {
+    padding: 48px;
+  }
+}
+
 /* Werk */
 
 .work-lead {

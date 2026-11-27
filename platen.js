@@ -460,4 +460,8 @@
   if ('ResizeObserver' in window) new ResizeObserver(drawLinks).observe(wrap);
   window.addEventListener('load', drawLinks);
   drawLinks();
+
+  // Een adres met ?open=<id> opent die plaat meteen in de kijker.
+  var wanted = new URLSearchParams(window.location.search).get('open');
+  if (wanted && byId(wanted)) openViewer(byId(wanted), tiles[wanted]);
 })();
