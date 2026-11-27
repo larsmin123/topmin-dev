@@ -15,6 +15,9 @@
   var PLATE_FULL_AT = 0.85;
   var CAPTION_FROM = 0.7;
   var CAPTION_FULL_AT = 0.9;
+  var LAPSE_FRAME_MS = 110;
+  var LAPSE_OBJECT_SIZE = 0.62; // langste zijde van het object, als deel van de plaatbreedte
+  var LAPSE_PLATE_RATIO = 1.25; // hoogte gedeeld door breedte van de plaat
 
   var root = document.documentElement;
   root.classList.add('js');
@@ -129,7 +132,79 @@
     items.forEach(function (el) { observer.observe(el); });
   }
 
+  // Match cut: zolang de muis op de plaat staat komen alle objecten voorbij,
+  // elk zo geschaald en verschoven dat de omtrek op dezelfde plek valt.
+  function runLapse() {
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!plate || !canHover || reducedMotion || !window.fetch) return;
+
+    var layer = document.createElement('div');
+    layer.className = 'lapse';
+    layer.setAttribute('aria-hidden', 'true');
+    var image = document.createElement('img');
+    image.alt = '';
+    layer.appendChild(image);
+    plate.appendChild(layer);
+
+    var frames = [];
+    var index = 0;
+    var timer = null;
+
+    function show() {
+      var frame = frames[index];
+      // Midden van de omtrek naar het midden van de plaat, langste zijde naar een vaste maat.
+      var widest = Math.max(frame.w, frame.h * LAPSE_PLATE_RATIO);
+      var zoom = LAPSE_OBJECT_SIZE / widest;
+      var x = (0.5 - (frame.x + frame.w / 2) * zoom) * 100;
+      var y = (0.5 - (frame.y + frame.h / 2) * zoom) * 100;
+      image.src = frame.img.src;
+      image.style.transform = 'translate(' + x + '%,' + y + '%) scale(' + zoom + ')';
+      index = (index + 1) % frames.length;
+    }
+
+    function start() {
+      if (timer || !frames.length) return;
+      layer.classList.add('on');
+      show();
+      timer = setInterval(show, LAPSE_FRAME_MS);
+    }
+
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+      index = 0;
+      layer.classList.remove('on');
+    }
+
+    function load() {
+      fetch('images/lapse/index.json')
+        .then(function (response) { return response.ok ? response.json() : []; })
+        .then(function (list) {
+          var pending = list.map(function (row) {
+            return new Promise(function (resolve) {
+              var img = new Image();
+              img.onload = function () { resolve({ img: img, x: row[1], y: row[2], w: row[3], h: row[4] }); };
+              img.onerror = function () { resolve(null); };
+              img.src = 'images/lapse/' + row[0];
+            });
+          });
+          return Promise.all(pending);
+        })
+        .then(function (loaded) {
+          frames = loaded.filter(Boolean);
+          if (plate.matches(':hover')) start();
+        })
+        .catch(function () { frames = []; });
+    }
+
+    plate.addEventListener('mouseenter', start);
+    plate.addEventListener('mouseleave', stop);
+    if (document.readyState === 'complete') load();
+    else window.addEventListener('load', load);
+  }
+
   if (scale) buildTicks(scale.querySelector('.scale-ticks'));
+  runLapse();
   runClock();
   revealOnScroll(Array.prototype.slice.call(document.querySelectorAll('.reveal')));
 

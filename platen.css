@@ -1,0 +1,296 @@
+/* TOP/MIN, platen: inzoomen en verbanden. Bouwt op styles.css. */
+
+.pl-section {
+  padding-top: 128px;
+}
+
+.pl-title {
+  max-width: 14em;
+  margin-bottom: 32px;
+  font-size: clamp(40px, 6vw, 96px);
+  line-height: 1.04;
+}
+
+button {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Assen */
+
+.axes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin-top: 64px;
+}
+
+.axis {
+  padding: 12px 0;
+  border-bottom: 1px solid transparent;
+  color: var(--soft);
+  font-family: var(--display);
+  transition: color 400ms var(--ease), border-color 400ms var(--ease);
+}
+
+.axis:hover,
+.axis[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+.axis[aria-pressed="true"] {
+  border-bottom-color: var(--ink);
+}
+
+.links-caption {
+  min-height: 32px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+  color: var(--accent);
+}
+
+/* Raster */
+
+.pl-wrap {
+  position: relative;
+}
+
+.pl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .pl-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .pl-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.pl {
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  padding: 0;
+  background: #c0c0c0;
+  transition: opacity 400ms var(--ease);
+}
+
+.pl img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pl.off {
+  opacity: 0.25;
+}
+
+.pl-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.pl-lines polyline {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+}
+
+.pl-lines circle {
+  fill: var(--accent);
+}
+
+/* Kijker */
+
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  background: var(--ground);
+}
+
+.viewer[hidden] {
+  display: none;
+}
+
+.viewer-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #c0c0c0;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.viewer-stage.dragging {
+  cursor: grabbing;
+}
+
+.viewer-plate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.viewer-plate img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.viewer-measure {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.viewer-measure[hidden] {
+  display: none;
+}
+
+.viewer-measure * {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.viewer-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: 50svh;
+  overflow-y: auto;
+  padding: 24px 16px;
+}
+
+.viewer-number {
+  color: var(--soft);
+}
+
+.viewer-panel h2 {
+  margin-top: 8px;
+  font-size: 24px;
+  line-height: 1.16;
+}
+
+.viewer-meta {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 0 16px;
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.viewer-meta dt,
+.viewer-meta dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 16px;
+  min-height: 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.viewer-meta dt {
+  color: var(--soft);
+}
+
+.viewer-meta dd {
+  font-size: 16px;
+}
+
+.value {
+  padding: 8px 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 400ms var(--ease);
+}
+
+.value:hover {
+  color: var(--accent);
+}
+
+.viewer-tools {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tool {
+  min-width: 48px;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--ink);
+  font-family: var(--display);
+  transition: background 400ms var(--ease), color 400ms var(--ease);
+}
+
+.tool:hover,
+.tool[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.tool[data-tool="close"] {
+  margin-left: auto;
+}
+
+@media (min-width: 1024px) {
+  .viewer {
+    flex-direction: row-reverse;
+  }
+
+  .viewer-panel {
+    width: 400px;
+    max-height: none;
+    padding: 96px 48px 48px;
+  }
+
+  .viewer-panel h2 {
+    font-size: 32px;
+  }
+
+  .viewer-meta {
+    margin-top: 32px;
+  }
+
+  .viewer-tools {
+    margin-top: auto;
+    padding-top: 32px;
+  }
+}
