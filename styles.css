@@ -388,6 +388,10 @@ h3 {
   background: var(--line);
 }
 
+.plate-book {
+  aspect-ratio: 3 / 2;
+}
+
 .plate-wide img {
   display: block;
   width: 100%;
