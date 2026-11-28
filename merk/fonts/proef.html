@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>TOPMIN Sans, proefblad</title>
+<title>TOPMIN Sans</title>
 <style>
   @font-face {
     font-family: "TOPMIN Sans";
@@ -16,31 +16,79 @@
     src: url("bron/FunnelSans-wght.ttf") format("truetype");
     font-weight: 300 800;
   }
+  :root { --ink: #000; --soft: rgba(0, 0, 0, 0.68); --line: rgba(0, 0, 0, 0.18); --accent: #1f3fbf; }
   * { box-sizing: border-box; margin: 0; }
-  body { padding: 48px 16px; background: #fff; color: #000; font-family: "TOPMIN Sans", sans-serif; font-weight: 300; }
-  .label { margin: 48px 0 8px; font-size: 14px; font-weight: 400; color: #767676; }
-  .label:first-child { margin-top: 0; }
-  .bron { font-family: "Funnel Sans bron", sans-serif; }
-  .xl { font-size: clamp(48px, 11vw, 144px); line-height: 1.1; }
-  .l { font-size: clamp(32px, 5vw, 64px); line-height: 1.2; }
-  .m { max-width: 34em; font-size: 20px; line-height: 1.5; font-weight: 400; }
-  .w4 { font-weight: 400; } .w6 { font-weight: 600; } .w8 { font-weight: 800; }
-  @media (min-width: 768px) { body { padding: 96px 48px; } }
+  body {
+    padding: 48px 16px 96px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "TOPMIN Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+  }
+  main { max-width: 1440px; margin: 0 auto; }
+  .label { font-size: 14px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--soft); }
+  .word { margin-top: 16px; font-size: clamp(72px, 21vw, 320px); line-height: 1; letter-spacing: -0.01em; white-space: nowrap; }
+  .pair { display: grid; grid-template-columns: 1fr; gap: 48px 32px; margin-top: 96px; }
+  figure { border-top: 1px solid var(--ink); padding-top: 16px; }
+  figure svg { display: block; width: 100%; height: auto; margin-top: 16px; overflow: visible; }
+  figcaption { max-width: 28em; margin-top: 16px; font-size: 18px; font-weight: 400; line-height: 1.5; }
+  .bron { font-family: "Funnel Sans bron", sans-serif; fill: none; stroke: var(--ink); stroke-width: 1.5; }
+  .eigen { font-family: "TOPMIN Sans", sans-serif; fill: var(--ink); }
+  .guide { stroke: var(--accent); stroke-width: 1.5; }
+  .tag { font-family: "TOPMIN Sans", sans-serif; font-size: 16px; font-weight: 400; fill: var(--soft); }
+  .tag.now { fill: var(--accent); }
+  .weights { margin-top: 96px; border-top: 1px solid var(--ink); }
+  .weights p { display: flex; align-items: baseline; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: clamp(28px, 5.5vw, 80px); line-height: 1.1; white-space: nowrap; overflow: hidden; }
+  .weights span { flex: 0 0 48px; font-size: 14px; font-weight: 400; color: var(--soft); }
+  .set { margin-top: 96px; font-size: clamp(24px, 3.6vw, 52px); line-height: 1.3; overflow-wrap: anywhere; }
+  @media (min-width: 768px) {
+    body { padding: 96px 48px 144px; }
+    .pair { grid-template-columns: 1fr 1fr; }
+  }
 </style>
 </head>
 <body>
-  <p class="label">Funnel Sans</p>
-  <p class="xl bron">TOP/MIN: ijs.</p>
+<main>
   <p class="label">TOPMIN Sans</p>
-  <p class="xl">TOP/MIN: ijs.</p>
+  <p class="word">TOP/MIN</p>
 
-  <p class="label">Gewichten 300, 400, 600, 800</p>
-  <p class="l">Zeeuws Museum / Middelburg</p>
-  <p class="l w4">Japanmuseum SieboldHuis: 166 prenten.</p>
-  <p class="l w6">Privé, coördinatie, reünie… ja!</p>
-  <p class="l w8">Wat is er te zien? 1/2 ÷ 3.</p>
+  <div class="pair">
+    <figure>
+      <p class="label">De streep uit het logo</p>
+      <svg viewBox="0 0 640 400" role="img" aria-label="De schuine streep van Funnel Sans naast die van TOPMIN Sans">
+        <line class="guide" x1="0" y1="320" x2="640" y2="320"/>
+        <line class="guide" x1="0" y1="104" x2="640" y2="104"/>
+        <text class="bron" x="96" y="320" font-size="320" font-weight="300">/</text>
+        <text class="eigen" x="400" y="320" font-size="320" font-weight="300">/</text>
+        <text class="tag" x="96" y="40">Funnel Sans</text>
+        <text class="tag now" x="400" y="40">TOPMIN Sans</text>
+      </svg>
+      <figcaption>Van grondlijn tot kapitaalhoogte, onder de hoek van het woordmerk.</figcaption>
+    </figure>
+    <figure>
+      <p class="label">Vierkante punten</p>
+      <svg viewBox="0 0 640 400" role="img" aria-label="De letters ij met ronde punten in Funnel Sans en vierkante punten in TOPMIN Sans">
+        <line class="guide" x1="0" y1="320" x2="640" y2="320"/>
+        <line class="guide" x1="0" y1="160" x2="640" y2="160"/>
+        <text class="bron" x="56" y="320" font-size="320" font-weight="300">ij:</text>
+        <text class="eigen" x="368" y="320" font-size="320" font-weight="300">ij:</text>
+        <text class="tag" x="56" y="40">Funnel Sans</text>
+        <text class="tag now" x="368" y="40">TOPMIN Sans</text>
+      </svg>
+      <figcaption>Punt, dubbele punt, i, j en trema volgen de vierkante kop van de komma.</figcaption>
+    </figure>
+  </div>
 
-  <p class="label">Lopende tekst</p>
-  <p class="m">TOP/MIN digitaliseert museumcollecties: fotografie, data en een website waarop alles te vinden is. Pim fotografeert elk object zoals het is; Lars zoekt de verbanden tussen de beelden. Zie studiotopmin.com/case.html of mail lars@studiotopmin.com.</p>
+  <div class="weights">
+    <p style="font-weight:300"><span>300</span>Zeeuws Museum / Middelburg</p>
+    <p style="font-weight:400"><span>400</span>Japanmuseum SieboldHuis: 166</p>
+    <p style="font-weight:500"><span>500</span>Maritiem muZEEum, Vlissingen.</p>
+    <p style="font-weight:600"><span>600</span>Coördinatie, reünie, privé…</p>
+    <p style="font-weight:800"><span>800</span>Wat is er te zien? 1/2 ÷ 3</p>
+  </div>
+
+  <p class="set">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 . , : ; ! ? / \ … ë ï ö ü</p>
+</main>
 </body>
 </html>
