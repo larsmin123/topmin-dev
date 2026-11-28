@@ -145,28 +145,65 @@
     var layer = document.createElement('div');
     layer.className = 'lapse';
     layer.setAttribute('aria-hidden', 'true');
-    var image = document.createElement('img');
-    image.alt = '';
-    layer.appendChild(image);
+    // Twee beelden boven elkaar: het volgende wordt eerst helemaal uitgepakt en pas dan
+    // getoond. Zo staat er nooit een leeg of half beeld, en nooit een oud beeld op een nieuwe plek.
+    var images = [document.createElement('img'), document.createElement('img')];
+    images.forEach(function (el) {
+      el.alt = '';
+      layer.appendChild(el);
+    });
     plate.appendChild(layer);
 
-    var frames = [];
+    var frames = [];   // een plek per object; leeg zolang het beeld nog laadt
+    var ready = 0;
     var index = 0;
     var timer = null;
+    var front = 0;
     var shown = -1;
+    var wanted = -1;
+    var busy = false;
     var scrubbing = false;
 
-    function showFrame(at) {
-      if (at === shown) return;
-      shown = at;
+    // Het dichtstbijzijnde object dat al geladen is.
+    function nearest(at) {
+      for (var d = 0; d < frames.length; d += 1) {
+        if (frames[at - d]) return at - d;
+        if (frames[at + d]) return at + d;
+      }
+      return -1;
+    }
+
+    function flip() {
+      var at = wanted;
       var frame = frames[at];
+      var back = images[1 - front];
+      busy = true;
       // Midden van de omtrek naar het midden van de plaat, langste zijde naar een vaste maat.
       var widest = Math.max(frame.w, frame.h * LAPSE_PLATE_RATIO);
       var zoom = LAPSE_OBJECT_SIZE / widest;
       var x = (0.5 - (frame.x + frame.w / 2) * zoom) * 100;
       var y = (0.5 - (frame.y + frame.h / 2) * zoom) * 100;
-      image.src = frame.img.src;
-      image.style.transform = 'translate(' + x + '%,' + y + '%) scale(' + zoom + ')';
+      back.src = frame.img.src;
+      back.style.transform = 'translate(' + x + '%,' + y + '%) scale(' + zoom + ')';
+
+      function done() {
+        back.classList.add('front');
+        images[front].classList.remove('front');
+        front = 1 - front;
+        shown = at;
+        busy = false;
+        if (wanted !== shown) flip();
+      }
+
+      if (back.decode) back.decode().then(done, done);
+      else done();
+    }
+
+    function showFrame(at) {
+      at = nearest(at);
+      if (at < 0 || at === wanted) return;
+      wanted = at;
+      if (!busy) flip();
     }
 
     function show() {
@@ -176,7 +213,7 @@
 
     // Scrollen bepaalt welk object er staat; t loopt van 0 tot 1.
     function scrub(t) {
-      if (!frames.length) return;
+      if (!ready) return;
       if (t <= 0 || t >= 1) {
         if (!scrubbing) return;
         scrubbing = false;
@@ -191,7 +228,7 @@
     }
 
     function start() {
-      if (timer || scrubbing || !frames.length) return;
+      if (timer || scrubbing || !ready) return;
       layer.classList.add('on');
       show();
       timer = setInterval(show, LAPSE_FRAME_MS);
@@ -208,20 +245,20 @@
       fetch('images/lapse/index.json')
         .then(function (response) { return response.ok ? response.json() : []; })
         .then(function (list) {
-          var pending = list.map(function (row) {
-            return new Promise(function (resolve) {
-              var img = new Image();
-              img.onload = function () { resolve({ img: img, x: row[1], y: row[2], w: row[3], h: row[4] }); };
-              img.onerror = function () { resolve(null); };
-              img.src = 'images/lapse/' + row[0];
-            });
+          frames = list.map(function () { return null; });
+          // Elk beeld doet mee zodra het binnen is; er wordt niet op de hele reeks gewacht.
+          list.forEach(function (row, at) {
+            var img = new Image();
+            img.onload = function () {
+              frames[at] = { img: img, x: row[1], y: row[2], w: row[3], h: row[4] };
+              ready += 1;
+              if (ready === 1) {
+                draw(window.scrollY);
+                if (plate.matches(':hover')) start();
+              }
+            };
+            img.src = 'images/lapse/' + row[0];
           });
-          return Promise.all(pending);
-        })
-        .then(function (loaded) {
-          frames = loaded.filter(Boolean);
-          draw(window.scrollY);
-          if (plate.matches(':hover')) start();
         })
         .catch(function () { frames = []; });
     }
