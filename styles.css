@@ -526,6 +526,39 @@ h3 {
   }
 }
 
+/* Rijen van twee: de breedtes volgen de verhouding van de beelden, zodat een rij altijd
+   boven en onder gelijk loopt, ook met een staand en een liggend beeld naast elkaar. */
+
+.case-gallery-rows {
+  display: block;
+}
+
+.case-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.case-row + .case-row {
+  margin-top: 8px;
+}
+
+@media (min-width: 768px) {
+  .case-row {
+    flex-direction: row;
+  }
+
+  .case-row .case-figure {
+    flex-basis: 0;
+    min-width: 0;
+  }
+
+  .case-row-half .case-figure {
+    flex: none;
+    width: calc(50% - 4px);
+  }
+}
+
 /* Prenten: elk blad in een even groot kader, heel te zien */
 
 .case-gallery-prints {

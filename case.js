@@ -57,6 +57,10 @@
 
   var gallery = find('[data-gallery]');
   if (item.layout) gallery.classList.add('case-gallery-' + item.layout);
+  // Zonder eigen indeling: rijen van twee, elk beeld zo breed dat de rij overal even hoog is.
+  var inRows = !item.layout;
+  var row = null;
+  if (inRows) gallery.classList.add('case-gallery-rows');
 
   // Een beeld is [pad, breedte, hoogte] of een object met srcset, bijschrift en doorklik.
   item.images.forEach(function (image, i) {
@@ -100,7 +104,24 @@
       }
       figure.appendChild(caption);
     }
-    gallery.appendChild(figure);
+    if (!inRows) {
+      gallery.appendChild(figure);
+      return;
+    }
+    figure.style.flexGrow = entry.w / entry.h;
+    if (!row) {
+      row = document.createElement('div');
+      row.className = 'case-row';
+      gallery.appendChild(row);
+      row.appendChild(figure);
+      // Het laatste beeld staat alleen: liggend over de hele breedte, staand op halve breedte.
+      if (i === item.images.length - 1) {
+        row.classList.add(entry.w > entry.h ? 'case-row-wide' : 'case-row-half');
+      }
+    } else {
+      row.appendChild(figure);
+      row = null;
+    }
   });
 
   if (copy.credit) {
