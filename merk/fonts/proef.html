@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TOPMIN Sans, proefblad</title>
+<style>
+  @font-face {
+    font-family: "TOPMIN Sans";
+    src: url("TopMinSans-wght.woff2") format("woff2");
+    font-weight: 300 800;
+  }
+  @font-face {
+    font-family: "Funnel Sans bron";
+    src: url("bron/FunnelSans-wght.ttf") format("truetype");
+    font-weight: 300 800;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { padding: 48px 16px; background: #fff; color: #000; font-family: "TOPMIN Sans", sans-serif; font-weight: 300; }
+  .label { margin: 48px 0 8px; font-size: 14px; font-weight: 400; color: #767676; }
+  .label:first-child { margin-top: 0; }
+  .bron { font-family: "Funnel Sans bron", sans-serif; }
+  .xl { font-size: clamp(48px, 11vw, 144px); line-height: 1.1; }
+  .l { font-size: clamp(32px, 5vw, 64px); line-height: 1.2; }
+  .m { max-width: 34em; font-size: 20px; line-height: 1.5; font-weight: 400; }
+  .w4 { font-weight: 400; } .w6 { font-weight: 600; } .w8 { font-weight: 800; }
+  @media (min-width: 768px) { body { padding: 96px 48px; } }
+</style>
+</head>
+<body>
+  <p class="label">Funnel Sans</p>
+  <p class="xl bron">TOP/MIN: ijs.</p>
+  <p class="label">TOPMIN Sans</p>
+  <p class="xl">TOP/MIN: ijs.</p>
+
+  <p class="label">Gewichten 300, 400, 600, 800</p>
+  <p class="l">Zeeuws Museum / Middelburg</p>
+  <p class="l w4">Japanmuseum SieboldHuis: 166 prenten.</p>
+  <p class="l w6">Privé, coördinatie, reünie… ja!</p>
+  <p class="l w8">Wat is er te zien? 1/2 ÷ 3.</p>
+
+  <p class="label">Lopende tekst</p>
+  <p class="m">TOP/MIN digitaliseert museumcollecties: fotografie, data en een website waarop alles te vinden is. Pim fotografeert elk object zoals het is; Lars zoekt de verbanden tussen de beelden. Zie studiotopmin.com/case.html of mail lars@studiotopmin.com.</p>
+</body>
+</html>
