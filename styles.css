@@ -1,10 +1,18 @@
 /* TOP/MIN — zwart op wit, één accent. 8 px grid. */
 
-/* TOPMIN Sans: Funnel Sans met de schuine streep uit het logo en vierkante punten.
+/* TOPMIN Sans en TOPMIN Display: Funnel met de schuine streep uit het logo en vierkante punten.
    Bron en licentie in merk/fonts. */
 @font-face {
   font-family: "TOPMIN Sans";
   src: url("merk/fonts/TopMinSans-wght.woff2") format("woff2");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TOPMIN Display";
+  src: url("merk/fonts/TopMinDisplay-wght.woff2") format("woff2");
   font-weight: 300 800;
   font-style: normal;
   font-display: swap;
@@ -17,7 +25,7 @@
   --line: rgba(0, 0, 0, 0.18);
   --accent: #1f3fbf;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --display: "Funnel Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display: "TOPMIN Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --text: "TOPMIN Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --gutter-left: 56px;
   --gutter-right: 16px;

@@ -1,11 +1,13 @@
-"""Bouwt TOPMIN Sans: Funnel Sans met twee eigen ingrepen, in alle gewichten (300 tot 800).
+"""Bouwt TOPMIN Sans en TOPMIN Display: Funnel Sans en Funnel Display met twee eigen
+ingrepen, in alle gewichten (300 tot 800).
 
 1. De schuine streep staat zoals in het woordmerk TOP/MIN: van grondlijn tot kapitaalhoogte,
    onder dezelfde hoek.
 2. Alle ronde punten (punt, dubbele punt, i, j, trema, uitroepteken, vraagteken, beletselteken)
    zijn vierkant, net als de kop van de komma die Funnel al heeft.
 
-Bron: bron/FunnelSans-wght.ttf, Copyright 2023 The Funnel Project Authors, SIL Open Font
+Bron: bron/FunnelSans-wght.ttf en bron/FunnelDisplay-wght.ttf, Copyright 2023 The Funnel
+Project Authors, SIL Open Font
 License 1.1 (zie OFL.txt). De variant valt onder dezelfde licentie en heeft een eigen naam.
 
 Gebruik:  python3 build_topmin_sans.py
@@ -19,8 +21,11 @@ from fontTools.ttLib.tables._g_l_y_f import GlyphCoordinates
 from fontTools.ttLib.tables.TupleVariation import TupleVariation
 from fontTools.varLib import instancer
 
-FAMILY = "TOPMIN Sans"
-PS_FAMILY = "TOPMINSans"
+# bronbestand, naam van de bron, eigen naam, bestandsnaam
+FONTS = (
+    ("FunnelSans-wght.ttf", "Funnel Sans", "TOPMIN Sans", "TopMinSans-wght"),
+    ("FunnelDisplay-wght.ttf", "Funnel Display", "TOPMIN Display", "TopMinDisplay-wght"),
+)
 BOLD_WEIGHT = 800            # het zwaarste gewicht van de bron
 SLASH_RUN = 0.40             # uit het logo: 40 opzij op 100 omhoog
 SLASH_SIDE = 15              # witruimte links en rechts van de streep
@@ -130,9 +135,9 @@ def kept(coords, points, flags=None):
     return out
 
 
-def main():
+def build(source_file, source_family, family, out_name):
     here = os.path.dirname(os.path.abspath(__file__))
-    source = os.path.join(here, "bron", "FunnelSans-wght.ttf")
+    source = os.path.join(here, "bron", source_file)
     font = TTFont(source)
     heavy = instancer.instantiateVariableFont(TTFont(source), {"wght": BOLD_WEIGHT})
     glyf, glyf_heavy = font["glyf"], heavy["glyf"]
@@ -174,12 +179,12 @@ def main():
         changed.append(name)
     set_advance_delta(font, ("slash", "backslash"), adv_bold - adv_light)
 
-    rename(font)
-    out = os.path.join(here, "TopMinSans-wght.ttf")
+    rename(font, source_family, family)
+    out = os.path.join(here, out_name + ".ttf")
     font.save(out)
     web = TTFont(out)
     web.flavor = "woff2"
-    web.save(os.path.join(here, "TopMinSans-wght.woff2"))
+    web.save(os.path.join(here, out_name + ".woff2"))
     return changed, out
 
 
@@ -206,18 +211,20 @@ def set_advance_delta(font, names, delta):
         data.calculateNumShorts(optimize=False)
 
 
-def rename(font):
+def rename(font, source_family, family):
+    compact = lambda text: text.replace(" ", "")
     for record in font["name"].names:
-        text = record.toUnicode()
         if record.nameID in (1, 3, 4, 6, 16, 25):
-            text = text.replace("Funnel Sans", FAMILY).replace("FunnelSans", PS_FAMILY).replace("DICO", "TPMN")
-            record.string = text
+            text = record.toUnicode()
+            text = text.replace(source_family, family).replace(compact(source_family), compact(family))
+            record.string = text.replace("DICO", "TPMN")
     font["name"].setName(
-        "TOPMIN Sans is een bewerking van Funnel Sans (The Funnel Project Authors), "
+        family + " is een bewerking van " + source_family + " (The Funnel Project Authors), "
         "SIL Open Font License 1.1.", 10, 3, 1, 0x409)
 
 
 if __name__ == "__main__":
-    names, path = main()
-    print(len(names), "tekens aangepast:", " ".join(names))
-    print("geschreven naar", path)
+    for row in FONTS:
+        names, path = build(*row)
+        print(len(names), "tekens aangepast:", " ".join(names))
+        print("geschreven naar", path)
